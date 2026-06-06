@@ -1,7 +1,15 @@
 /*
  * Copyright (c) 2020 The ZMK Contributors
- *
  * SPDX-License-Identifier: MIT
+ *
+ * Lily58 wireless — Nav / Tmux / Sym layer design
+ * See: ../../../tmux-conf/docs/superpowers/specs/2026-06-05-keyboard-tmux-design.md
+ *
+ * Layer map:
+ *   0  Base  — QWERTY
+ *   1  Nav   — hold LOWER (left offset middle finger)
+ *   2  Tmux  — hold either inner gap key [ or ] (whichever hand is free)
+ *   3  Sym   — hold RAISE (right offset middle finger)
  */
 
 #include <behaviors.dtsi>
@@ -12,57 +20,94 @@
     keymap {
         compatible = "zmk,keymap";
 
-        default_layer {
-            // ------------------------------------------------------------------------------------------------------------
-            // |  ESC  |  1  |  2  |  3   |  4   |  5   |                   |  6   |  7    |  8    |  9   |   0   |   `   |
-            // |  TAB  |  Q  |  W  |  E   |  R   |  T   |                   |  Y   |  U    |  I    |  O   |   P   |   -   |
-            // |  CTRL |  A  |  S  |  D   |  F   |  G   |                   |  H   |  J    |  K    |  L   |   ;   |   '   |
-            // | SHIFT |  Z  |  X  |  C   |  V   |  B   |   "["  |  |  "]"  |  N   |  M    |  ,    |  .   |   /   | SHIFT |
-            //                     | ALT  | GUI  | LOWER|  SPACE |  | ENTER | RAISE| BSPC  | GUI   |
-
+        base_layer {
+            // ┌────────┬──────┬──────┬──────┬──────┬──────┐                         ┌──────┬──────┬──────┬──────┬──────┬──────┐
+            // │  ESC   │  1   │  2   │  3   │  4   │  5   │                         │  6   │  7   │  8   │  9   │  0   │  `   │
+            // ├────────┼──────┼──────┼──────┼──────┼──────┤                         ├──────┼──────┼──────┼──────┼──────┼──────┤
+            // │  TAB   │  Q   │  W   │  E   │  R   │  T   │                         │  Y   │  U   │  I   │  O   │  P   │  -   │
+            // ├────────┼──────┼──────┼──────┼──────┼──────┤                         ├──────┼──────┼──────┼──────┼──────┼──────┤
+            // │  CTRL  │  A   │  S   │  D   │  F   │  G   │                         │  H   │  J   │  K   │  L   │  ;   │  '   │
+            // ├────────┼──────┼──────┼──────┼──────┼──────┼─────────┐   ┌───────────┼──────┼──────┼──────┼──────┼──────┼──────┤
+            // │  SHFT  │  Z   │  X   │  C   │  V   │  B   │ [/Tmux▸ │   │ ]/Tmux▸   │  N   │  M   │  ,   │  .   │  /   │ SHFT │
+            // └────────┴──────┴──────┼──────┼──────┼──────┼─────────┤   ├───────────┼──────┼──────┼──────┼──────┴──────┴──────┘
+            //                        │ SUPER│ ALT  │LOWER │  ENTER  │   │   SPACE   │RAISE │ BSPC │ DEL  │
+            //                        └──────┴──────┴──────┴─────────┘   └───────────┴──────┴──────┴──────┘
             display-name = "Base";
             bindings = <
-&kp ESC           &kp N1  &kp N2  &kp N3        &kp N4        &kp N5                          &kp N6  &kp N7         &kp N8     &kp N9   &kp N0    &kp GRAVE
-&kp TAB           &kp Q   &kp W   &kp E         &kp R         &kp T                           &kp Y   &kp U          &kp I      &kp O    &kp P     &kp MINUS
-&kp LEFT_SHIFT    &kp A   &kp S   &kp D         &kp F         &kp G                           &kp H   &kp J          &kp K      &kp L    &kp SEMI  &kp SQT
-&kp LEFT_CONTROL  &kp Z   &kp X   &kp C         &kp V         &kp B   &kp LBKT     &kp RBKT   &kp N   &kp M          &kp COMMA  &kp DOT  &kp FSLH  &kp RSHFT
-                                  &kp LEFT_GUI  &kp LEFT_ALT  &mo 1   &kp ENTER    &kp SPACE  &mo 2   &kp BACKSPACE  &kp DEL
+&kp ESC    &kp N1    &kp N2    &kp N3    &kp N4    &kp N5                              &kp N6    &kp N7    &kp N8     &kp N9   &kp N0    &kp GRAVE
+&kp TAB    &kp Q     &kp W     &kp E     &kp R     &kp T                               &kp Y     &kp U     &kp I      &kp O    &kp P     &kp MINUS
+&kp LCTRL  &kp A     &kp S     &kp D     &kp F     &kp G                               &kp H     &kp J     &kp K      &kp L    &kp SEMI  &kp SQT
+&kp LSHFT  &kp Z     &kp X     &kp C     &kp V     &kp B   &lt 2 LBKT   &lt 2 RBKT    &kp N     &kp M     &kp COMMA  &kp DOT  &kp FSLH  &kp RSHFT
+                               &kp LGUI  &kp LALT  &mo 1   &kp ENTER    &kp SPACE      &mo 3     &kp BSPC  &kp DEL
             >;
         };
 
-        lower_layer {
-            // ------------------------------------------------------------------------------------------------------------
-            // | BTCLR | BT1 | BT2 |  BT3 |  BT4 |  BT5 |                   |      |       |       |      |       |       |
-            // |  F1   |  F2 |  F3 |  F4  |  F5  |  F6  |                   |  F7  |  F8   |  F9   |  F10 |  F11  |  F12  |
-            // |   `   |  !  |  @  |  #   |  $   |  %   |                   |  ^   |  &    |  *    |  (   |   )   |   ~   |
-            // |       |     |     |      |      |      |        |  |       |      |  _    |  +    |  {   |   }   |  "|"  |
-            //                     |      |      |      |        |  |       |      |       |       |
-
-            display-name = "Lower";
+        nav_layer {
+            // ┌────────┬──────┬──────┬──────┬──────┬──────┐                         ┌──────────┬──────┬──────┬──────┬──────────┬──────┐
+            // │        │      │      │      │      │      │                         │          │      │      │      │          │      │
+            // ├────────┼──────┼──────┼──────┼──────┼──────┤                         ├──────────┼──────┼──────┼──────┼──────────┼──────┤
+            // │        │      │      │      │      │      │                         │ ⌃Home    │ PgUp │ Home │ PgDn │ ⌃End     │      │
+            // ├────────┼──────┼──────┼──────┼──────┼──────┤                         ├──────────┼──────┼──────┼──────┼──────────┼──────┤
+            // │        │  ⌃A  │  ⌃S  │      │  ⌃F  │      │                         │  ←       │  ↓   │  ↑   │  →   │ End      │      │
+            // ├────────┼──────┼──────┼──────┼──────┼──────┼─────────┐   ┌───────────┼──────────┼──────┼──────┼──────┼──────────┼──────┤
+            // │        │  ⌃Z  │  ⌃X  │  ⌃C  │  ⌃V  │      │         │   │           │ ⌃←       │ ⌃→   │      │      │          │      │
+            // └────────┴──────┴──────┼──────┼──────┼──────┼─────────┤   ├───────────┼──────────┼──────┼──────┼──────┴──────────┴──────┘
+            //                        │      │      │▶ held │         │   │   SPACE   │          │ BSPC │ DEL  │
+            //                        └──────┴──────┴───────┴─────────┘   └───────────┴──────────┴──────┴──────┘
+            // Shift + Nav + HJKL = text selection.  Left hand actions fire while right hand moves.
+            display-name = "Nav";
             bindings = <
-&bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                    &trans     &trans      &trans           &trans    &trans    &trans
-&kp F1      &kp F2        &kp F3        &kp F4        &kp F5        &kp F6                          &kp F7     &kp F8      &kp F9           &kp F10   &kp F11   &kp F12
-&kp GRAVE   &kp EXCL      &kp AT        &kp HASH      &kp DOLLAR    &kp PRCNT                       &kp CARET  &kp AMPS    &kp KP_MULTIPLY  &kp LPAR  &kp RPAR  &kp TILDE
-&trans      &trans        &trans        &trans        &trans        &trans        &trans    &trans  &trans     &kp MINUS   &kp KP_PLUS      &kp LBRC  &kp RBRC  &kp PIPE
-                                        &trans        &trans        &trans        &trans    &trans  &trans     &caps_word  &trans
+&trans     &trans        &trans        &trans        &trans        &trans                              &trans        &trans        &trans     &trans        &trans        &trans
+&trans     &trans        &trans        &trans        &trans        &trans                              &kp LC(HOME)  &kp PG_UP     &kp HOME   &kp PG_DN     &kp LC(END)   &trans
+&trans     &kp LC(A)     &kp LC(S)     &trans        &kp LC(F)     &trans                              &kp LEFT      &kp DOWN      &kp UP     &kp RIGHT     &kp END       &trans
+&trans     &kp LC(Z)     &kp LC(X)     &kp LC(C)     &kp LC(V)     &trans  &trans        &trans        &kp LC(LEFT)  &kp LC(RIGHT) &trans     &trans        &trans        &trans
+                                       &trans        &trans        &trans  &trans        &kp SPACE     &trans        &kp BSPC      &kp DEL
             >;
         };
 
-        raise_layer {
-            // ------------------------------------------------------------------------------------------------------------
-            // |       |     |     |      |      |      |                   |      |       |       |      |       |       |
-            // |   `   |  1  |  2  |  3   |  4   |  5   |                   |  6   |   7   |   8   |  9   |   0   |       |
-            // |   F1  |  F2 |  F3 |  F4  |  F5  |  F6  |                   |      |   <-  |   v   |  ^   |  ->   |       |
-            // |   F7  |  F8 |  F9 |  F10 |  F11 |  F12 |        |  |       |  +   |   -   |   =   |  [   |   ]   |   \   |
-            //                     |      |      |      |        |  |       |      |       |       |
-
-            display-name = "Raise";
+        tmux_layer {
+            // ┌────────┬──────┬──────┬──────┬──────┬──────┐                         ┌──────┬──────┬──────┬──────┬──────┬──────┐
+            // │        │ M-1  │ M-2  │ M-3  │ M-4  │ M-5  │                         │ M-6  │ M-7  │ M-8  │ M-9  │ M-`  │      │
+            // ├────────┼──────┼──────┼──────┼──────┼──────┤                         ├──────┼──────┼──────┼──────┼──────┼──────┤
+            // │        │      │      │      │ M-r  │ M-t  │                         │      │      │      │      │ M-p  │ M--  │
+            // ├────────┼──────┼──────┼──────┼──────┼──────┤                         ├──────┼──────┼──────┼──────┼──────┼──────┤
+            // │        │      │ M-s  │ M-d  │      │      │                         │ M-h  │ M-j  │ M-k  │ M-l  │ M-q  │ M-\  │
+            // ├────────┼──────┼──────┼──────┼──────┼──────┼─────────┐   ┌───────────┼──────┼──────┼──────┼──────┼──────┼──────┤
+            // │        │ M-z  │ M-x  │ M-c  │      │      │ ▶ held  │   │ ▶ held    │ M-n  │      │      │      │      │      │
+            // └────────┴──────┴──────┼──────┼──────┼──────┼─────────┤   ├───────────┼──────┼──────┼──────┼──────┴──────┴──────┘
+            //                        │      │      │      │         │   │           │      │ BSPC │ DEL  │
+            //                        └──────┴──────┴───────┴─────────┘   └───────────┴──────┴──────┴──────┘
+            // Shift+HJKL = M-HJKL (resize pane).  Shift+R = M-R (reload config).
+            display-name = "Tmux";
             bindings = <
-&trans     &trans  &trans  &trans   &trans   &trans                     &trans       &trans     &trans     &trans    &trans     &trans
-&kp GRAVE  &kp N1  &kp N2  &kp N3   &kp N4   &kp N5                     &kp N6       &kp N7     &kp N8     &kp N9    &kp N0     &trans
-&kp F1     &kp F2  &kp F3  &kp F4   &kp F5   &kp F6                     &kp HOME     &kp LEFT   &kp DOWN   &kp UP    &kp RIGHT  &kp END
-&kp F7     &kp F8  &kp F9  &kp F10  &kp F11  &kp F12  &trans    &trans  &kp KP_PLUS  &kp MINUS  &kp EQUAL  &kp LBKT  &kp RBKT   &kp BSLH
-                           &trans   &trans   &trans   &trans    &trans  &trans       &trans     &trans
+&trans     &kp LA(N1)    &kp LA(N2)    &kp LA(N3)    &kp LA(N4)    &kp LA(N5)                          &kp LA(N6)    &kp LA(N7)    &kp LA(N8)    &kp LA(N9)    &kp LA(GRAVE)  &trans
+&trans     &trans        &trans        &trans        &kp LA(R)     &kp LA(T)                           &trans        &trans        &trans        &trans        &kp LA(P)      &kp LA(MINUS)
+&trans     &trans        &kp LA(S)     &kp LA(D)     &trans        &trans                              &kp LA(H)     &kp LA(J)     &kp LA(K)     &kp LA(L)     &kp LA(Q)      &kp LA(BSLH)
+&trans     &kp LA(Z)     &kp LA(X)     &kp LA(C)     &trans        &trans      &trans      &trans       &kp LA(N)     &trans        &trans        &trans        &trans         &trans
+                                       &trans        &trans        &trans      &trans      &trans       &trans        &kp BSPC      &kp DEL
+            >;
+        };
+
+        sym_layer {
+            // ┌────────┬──────┬──────┬──────┬──────┬──────┐                         ┌──────┬──────┬──────┬──────┬──────┬──────┐
+            // │        │      │      │      │      │      │                         │      │      │      │      │      │      │
+            // ├────────┼──────┼──────┼──────┼──────┼──────┤                         ├──────┼──────┼──────┼──────┼──────┼──────┤
+            // │        │  !   │  @   │  #   │  $   │  %   │                         │  7   │  8   │  9   │  [   │  ]   │  =   │
+            // ├────────┼──────┼──────┼──────┼──────┼──────┤                         ├──────┼──────┼──────┼──────┼──────┼──────┤
+            // │        │  ^   │  &   │  *   │  (   │  )   │                         │  4   │  5   │  6   │  {   │  }   │  +   │
+            // ├────────┼──────┼──────┼──────┼──────┼──────┼─────────┐   ┌───────────┼──────┼──────┼──────┼──────┼──────┼──────┤
+            // │        │  ~   │  `   │  |   │  \   │  _   │         │   │     0     │  1   │  2   │  3   │  -   │  *   │  /   │
+            // └────────┴──────┴──────┼──────┼──────┼──────┼─────────┤   ├───────────┼──────┼──────┼──────┼──────┴──────┴──────┘
+            //                        │      │      │      │         │   │   SPACE   │▶ held│  .   │ DEL  │
+            //                        └──────┴──────┴───────┴─────────┘   └───────────┴──────┴──────┴──────┘
+            // Left hand: symbols.  Right hand: numpad + operators.  Inner gap ] = 0, right outer offset = decimal.
+            display-name = "Sym";
+            bindings = <
+&trans     &trans        &trans        &trans        &trans        &trans                              &trans    &trans    &trans    &trans    &trans    &trans
+&trans     &kp EXCL      &kp AT        &kp HASH      &kp DLLR      &kp PRCNT                           &kp N7    &kp N8    &kp N9    &kp LBKT  &kp RBKT  &kp EQUAL
+&trans     &kp CARET     &kp AMPS      &kp ASTRK     &kp LPAR      &kp RPAR                            &kp N4    &kp N5    &kp N6    &kp LBRC  &kp RBRC  &kp PLUS
+&trans     &kp TILDE     &kp GRAVE     &kp PIPE      &kp BSLH      &kp UNDER   &trans      &kp N0      &kp N1    &kp N2    &kp N3    &kp MINUS &kp ASTRK &kp FSLH
+                                       &trans        &trans        &trans      &trans      &kp SPACE   &trans    &kp DOT   &kp DEL
             >;
         };
 
