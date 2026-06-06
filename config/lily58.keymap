@@ -73,7 +73,7 @@
             // ├────────┼──────┼──────┼──────┼──────┼──────┤                         ├──────┼──────┼──────┼──────┼──────┼──────┤
             // │        │      │ M-s  │ M-d  │      │      │                         │ M-h  │ M-j  │ M-k  │ M-l  │ M-q  │ M-\  │
             // ├────────┼──────┼──────┼──────┼──────┼──────┼─────────┐   ┌───────────┼──────┼──────┼──────┼──────┼──────┼──────┤
-            // │        │ M-z  │ M-x  │ M-c  │      │      │ ▶ held  │   │ ▶ held    │ M-n  │      │      │      │      │      │
+            // │        │ M-z  │ M-x  │ M-c  │      │      │ ▶ held  │   │ ▶ held    │ M-n  │ M-m  │      │      │      │      │
             // └────────┴──────┴──────┼──────┼──────┼──────┼─────────┤   ├───────────┼──────┼──────┼──────┼──────┴──────┴──────┘
             //                        │      │      │      │         │   │           │      │ BSPC │ DEL  │
             //                        └──────┴──────┴───────┴─────────┘   └───────────┴──────┴──────┴──────┘
@@ -83,7 +83,7 @@
 &trans     &kp LA(N1)    &kp LA(N2)    &kp LA(N3)    &kp LA(N4)    &kp LA(N5)                          &kp LA(N6)    &kp LA(N7)    &kp LA(N8)    &kp LA(N9)    &kp LA(GRAVE)  &trans
 &trans     &trans        &trans        &trans        &kp LA(R)     &kp LA(T)                           &trans        &trans        &trans        &trans        &kp LA(P)      &kp LA(MINUS)
 &trans     &trans        &kp LA(S)     &kp LA(D)     &trans        &trans                              &kp LA(H)     &kp LA(J)     &kp LA(K)     &kp LA(L)     &kp LA(Q)      &kp LA(BSLH)
-&trans     &kp LA(Z)     &kp LA(X)     &kp LA(C)     &trans        &trans      &trans      &trans       &kp LA(N)     &trans        &trans        &trans        &trans         &trans
+&trans     &kp LA(Z)     &kp LA(X)     &kp LA(C)     &trans        &trans      &trans      &trans       &kp LA(N)     &kp LA(M)     &trans        &trans        &trans         &trans
                                        &trans        &trans        &trans      &trans      &trans       &trans        &kp BSPC      &kp DEL
             >;
         };
