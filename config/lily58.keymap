@@ -44,7 +44,7 @@
 
         nav_layer {
             // ┌────────┬──────┬──────┬──────┬──────┬──────┐                         ┌──────────┬──────┬──────┬──────┬──────────┬──────┐
-            // │        │      │      │      │      │      │                         │          │      │      │      │          │      │
+            // │ BT_CLR │ BT 1 │ BT 2 │ BT 3 │ BT 4 │ BT 5 │                         │          │      │      │      │          │      │
             // ├────────┼──────┼──────┼──────┼──────┼──────┤                         ├──────────┼──────┼──────┼──────┼──────────┼──────┤
             // │        │      │      │      │      │      │                         │ ⌃Home    │ PgUp │ Home │ PgDn │ ⌃End     │      │
             // ├────────┼──────┼──────┼──────┼──────┼──────┤                         ├──────────┼──────┼──────┼──────┼──────────┼──────┤
@@ -57,7 +57,7 @@
             // Shift + Nav + HJKL = text selection.  Left hand actions fire while right hand moves.
             display-name = "Nav";
             bindings = <
-&trans     &trans        &trans        &trans        &trans        &trans                              &trans        &trans        &trans     &trans        &trans        &trans
+&bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                    &trans        &trans        &trans     &trans        &trans        &trans
 &trans     &trans        &trans        &trans        &trans        &trans                              &kp LC(HOME)  &kp PG_UP     &kp HOME   &kp PG_DN     &kp LC(END)   &trans
 &trans     &kp LC(A)     &kp LC(S)     &trans        &kp LC(F)     &trans                              &kp LEFT      &kp DOWN      &kp UP     &kp RIGHT     &kp END       &trans
 &trans     &kp LC(Z)     &kp LC(X)     &kp LC(C)     &kp LC(V)     &trans  &trans        &trans        &kp LC(LEFT)  &kp LC(RIGHT) &trans     &trans        &trans        &trans
@@ -71,19 +71,19 @@
             // ├────────┼──────┼──────┼──────┼──────┼──────┤                         ├──────┼──────┼──────┼──────┼──────┼──────┤
             // │        │      │      │      │ M-r  │ M-t  │                         │      │      │      │      │ M-p  │ M--  │
             // ├────────┼──────┼──────┼──────┼──────┼──────┤                         ├──────┼──────┼──────┼──────┼──────┼──────┤
-            // │        │      │ M-s  │ M-d  │      │      │                         │ M-h  │ M-j  │ M-k  │ M-l  │ M-q  │ M-\  │
+            // │        │      │ M-s  │ M-d  │ M-f  │ M-g  │                         │ M-h  │ M-j  │ M-k  │ M-l  │ M-q  │ M-\  │
             // ├────────┼──────┼──────┼──────┼──────┼──────┼─────────┐   ┌───────────┼──────┼──────┼──────┼──────┼──────┼──────┤
-            // │        │ M-z  │ M-x  │ M-c  │      │      │ ▶ held  │   │ ▶ held    │ M-n  │ M-m  │      │      │      │      │
+            // │        │ M-z  │ M-x  │ M-c  │      │ M-b  │ ▶ held  │   │ ▶ held    │ M-n  │ M-m  │      │      │      │      │
             // └────────┴──────┴──────┼──────┼──────┼──────┼─────────┤   ├───────────┼──────┼──────┼──────┼──────┴──────┴──────┘
             //                        │      │      │      │         │   │           │      │ BSPC │ DEL  │
             //                        └──────┴──────┴───────┴─────────┘   └───────────┴──────┴──────┴──────┘
-            // Shift+HJKL = M-HJKL (resize pane).  Shift+R = M-R (reload config).
+            // Shift+HJKL = M-HJKL (resize pane).  Shift+R = M-R (reload config).  M-F=sessionizer, M-G=lazygit, M-B=btop.
             display-name = "Tmux";
             bindings = <
 &trans     &kp LA(N1)    &kp LA(N2)    &kp LA(N3)    &kp LA(N4)    &kp LA(N5)                          &kp LA(N6)    &kp LA(N7)    &kp LA(N8)    &kp LA(N9)    &kp LA(GRAVE)  &trans
 &trans     &trans        &trans        &trans        &kp LA(R)     &kp LA(T)                           &trans        &trans        &trans        &trans        &kp LA(P)      &kp LA(MINUS)
-&trans     &trans        &kp LA(S)     &kp LA(D)     &trans        &trans                              &kp LA(H)     &kp LA(J)     &kp LA(K)     &kp LA(L)     &kp LA(Q)      &kp LA(BSLH)
-&trans     &kp LA(Z)     &kp LA(X)     &kp LA(C)     &trans        &trans      &trans      &trans       &kp LA(N)     &kp LA(M)     &trans        &trans        &trans         &trans
+&trans     &trans        &kp LA(S)     &kp LA(D)     &kp LA(F)     &kp LA(G)                           &kp LA(H)     &kp LA(J)     &kp LA(K)     &kp LA(L)     &kp LA(Q)      &kp LA(BSLH)
+&trans     &kp LA(Z)     &kp LA(X)     &kp LA(C)     &trans        &kp LA(B)   &trans      &trans       &kp LA(N)     &kp LA(M)     &trans        &trans        &trans         &trans
                                        &trans        &trans        &trans      &trans      &trans       &trans        &kp BSPC      &kp DEL
             >;
         };
